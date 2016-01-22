@@ -23,7 +23,7 @@ public class Shoulder extends Subsystem {
 		rightShoulder = new CANTalon(RobotMap.rightShoulderID);
 		leftShoulder = new CANTalon(RobotMap.leftShoulderID);
 		
-		rightShoulder.setFeedbackDevice(FeedbackDevice.);
+		rightShoulder.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		
 		
 		rightShoulder.changeControlMode(TalonControlMode.Position);
