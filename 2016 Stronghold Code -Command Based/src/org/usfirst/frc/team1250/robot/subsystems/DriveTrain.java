@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;;
  */
 public class DriveTrain extends Subsystem {
     
+	
     private CANTalon frntMotorRight, frntMotorLeft;
     //private CANTalon midMotorRight,midMotorLeft;
     private CANTalon bckMotorRight,bckMotorLeft;
@@ -47,6 +48,8 @@ public class DriveTrain extends Subsystem {
     	bckMotorLeft.set(frntMotorLeft.getDeviceID());
     	
     	
+    	
+    	
     	drive = new RobotDrive(frntMotorRight,frntMotorLeft);
     	drive.setSafetyEnabled(true);
     	
@@ -59,8 +62,8 @@ public class DriveTrain extends Subsystem {
         
     }
     
-    public void tankDrive(Joystick leftStick,Joystick rightStick) {
-    	drive.tankDrive(leftStick, rightStick);
+    public void tankDrive(double d,double e, boolean b) {
+    	drive.tankDrive(d, e, b);
     }
     
     public void stop(){

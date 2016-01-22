@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1250.robot;
 
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 import org.usfirst.frc.team1250.robot.RobotMap;
 import org.usfirst.frc.team1250.robot.commands.ExampleCommand;
@@ -11,17 +12,27 @@ import org.usfirst.frc.team1250.robot.commands.ExampleCommand;
  */
 public class OI {
 	
-	public Joystick leftJoystick;
-	public Joystick rightJoystick;
+	public Joystick gamepad;
+	// public Joystick leftJoystick;
+	//public Joystick rightJoystick;
 
 	public OI(){
+		gamepad = new Joystick(RobotMap.gamepad);
+		// leftJoystick = new Joystick(RobotMap.leftStick);
+		// rightJoystick = new Joystick(RobotMap.rightStick);
 		
-		leftJoystick = new Joystick(RobotMap.leftStick);
-		rightJoystick = new Joystick(RobotMap.rightStick);
+		
 	
 	}
+	public double getLeftStick(){
+		return gamepad.getY();
+	}
 	
-	public Joystick getLeftStick() {
+	public double getRightStick(){
+		return gamepad.getRawAxis(3);
+	}
+	
+	/*public Joystick getLeftStick() {
 		return leftJoystick;
 	}
 	
@@ -29,6 +40,6 @@ public class OI {
 		return rightJoystick;
 		
 	}
-		
+		*/
 }
 

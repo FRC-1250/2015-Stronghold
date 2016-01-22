@@ -2,6 +2,7 @@
 package org.usfirst.frc.team1250.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -24,16 +25,24 @@ public class Robot extends IterativeRobot {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
-
+	
+	double leftStickValue = 0.0;
+	double rightStickValue = 0.0;
+	
 	public static DriveTrain drivetrain;
     Command autonomousCommand;
     SendableChooser chooser;
-
+	double counter = 0.0;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
+    
+   
+    
     public void robotInit() {
+    	
+    	
     	
     	drivetrain = new DriveTrain();
 		oi = new OI();
@@ -41,6 +50,11 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Default Auto", new ExampleCommand());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        SmartDashboard.putData(Scheduler.getInstance());
+    	SmartDashboard.putNumber("Counter", counter++);
+    	Timer.delay(0.10);
+    	
+       
     }
 	
 	/**
@@ -103,6 +117,16 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+
+        
+        
+        //Dash Board axis outputs
+        
+        leftStickValue = Robot.oi.gamepad.getY();
+    	SmartDashboard.putNumber("Left Stick", leftStickValue);
+    	
+    	rightStickValue = Robot.oi.gamepad.getRawAxis(3);
+    	SmartDashboard.putNumber("Right Stick", rightStickValue);
     }
     
     /**

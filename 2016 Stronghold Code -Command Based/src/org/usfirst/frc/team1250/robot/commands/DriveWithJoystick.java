@@ -2,12 +2,16 @@ package org.usfirst.frc.team1250.robot.commands;
 
 import org.usfirst.frc.team1250.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team1250.robot.subsystems.DriveTrain;
 
 /**
  *
  */
 public class DriveWithJoystick extends Command {
 
+
+	
     public DriveWithJoystick() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -16,11 +20,15 @@ public class DriveWithJoystick extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.tankDrive(Robot.oi.getLeftStick(),Robot.oi.getRightStick());
+    	//Robot.drivetrain.tankDrive(Robot.oi.getLeftStick(),Robot.oi.getRightStick(),true);
+    	Robot.drivetrain.tankDrive(Robot.oi.getRightStick(), Robot.oi.getLeftStick(), true);
+    	
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
