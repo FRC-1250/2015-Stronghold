@@ -14,26 +14,74 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;;
  */
 public class Shoulder extends Subsystem {
 	
+	// Creating the right and left TALON SRX using CAN
 	private CANTalon rightShoulder, leftShoulder;
+	public double sensorPosition;
+	private final double p = 0.0;
+	private final double i = 0.0;
+	private final double d = 0.0;
+	private double ticks;
+	private double degrees;
+	private static double shoulderAngle;
+	private double stickPosition;
+	
     
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
 	
 	public Shoulder(){
-		rightShoulder = new CANTalon(RobotMap.rightShoulderID);
+		rightShoulder = new CANTalon(RobotMap.rightShoulderID); // See RobotMap for IDs 
 		leftShoulder = new CANTalon(RobotMap.leftShoulderID);
+		rightShoulder.setPosition(0);
+		rightShoulder.reverseSensor(false);
+		rightShoulder.enableLimitSwitch(false, true); // Shoulder Limit switch to prevent driving arms into floor
 		
-		rightShoulder.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		rightShoulder.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative); // Using a Quadrature Encoder	
 		
 		
-		rightShoulder.changeControlMode(TalonControlMode.Position);
+		leftShoulder.changeControlMode(TalonControlMode.Follower);
+		leftShoulder.set(rightShoulder.getDeviceID());
+		
 		
 		
 	}
 	
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+    	rightShoulder.changeControlMode(TalonControlMode.PercentVbus); // for now, use manual
+    }
+    
+    public void manualMode(Joystick pos){
+    	
+    	// gets manualMode Joystick position
+    	
+    	rightShoulder.changeControlMode(TalonControlMode.PercentVbus); // Position Based
+    	stickPosition = pos.getY()*0.66; //scales value by 2/3 to prevent smashing
+    	rightShoulder.set(stickPosition); 	
+    }
+    
+    private double degreesToTicks(double degrees){
+    	
+    	ticks = degrees * (4096/360); // For CTR - Mag Encoder
+    	
+    	return ticks;
+    }
+    
+    private double ticksToDegrees(double ticks){
+    	degrees = ticks * (360/4096);
+    	return degrees;
+    }
+    
+    public void raiseArm(){
+    	
+    }
+    
+    public double getShoulderPos(){
+    	ticks = rightShoulder.getPosition();
+    	shoulderAngle = ticksToDegrees(ticks);
+    	
+    	return shoulderAngle;
+    }
+    
+    public double getEncoderTicks(){
+    	return rightShoulder.getPosition();
     }
 }
 

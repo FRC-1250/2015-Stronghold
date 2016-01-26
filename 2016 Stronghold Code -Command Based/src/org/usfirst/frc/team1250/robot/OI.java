@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1250.robot;
 
-import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 import org.usfirst.frc.team1250.robot.RobotMap;
@@ -13,22 +13,34 @@ import org.usfirst.frc.team1250.robot.commands.ExampleCommand;
 public class OI {
 	
 	public Joystick gamepad;
+	public Joystick manualStick;
 	// public Joystick leftJoystick;
 	//public Joystick rightJoystick;
 
 	public OI(){
-		gamepad = new Joystick(RobotMap.gamepad);
-		// leftJoystick = new Joystick(RobotMap.leftStick);
+		gamepad = new Joystick(RobotMap.gamepad); // Instantiates instance of Joystick class
+		manualStick = new Joystick(RobotMap.manualStick);
+		
+		
+		new JoystickButton(gamepad,1).whenPressed(null);
+		
+		
+		// leftJoystick = new Joystick(RobotMap.leftStick); //if using two Joysticks for tank drive
 		// rightJoystick = new Joystick(RobotMap.rightStick);
 		
+		//SmartDashboard.putData("Raise Arm");
 		
 	
 	}
+	
+	
 	public double getLeftStick(){
+		// Returns data on left gamepad stick
 		return gamepad.getY();
 	}
 	
 	public double getRightStick(){
+		// Returns data on right gamepad stick
 		return gamepad.getRawAxis(3);
 	}
 	

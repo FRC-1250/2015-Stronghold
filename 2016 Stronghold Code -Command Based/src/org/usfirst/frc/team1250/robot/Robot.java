@@ -6,11 +6,13 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.CameraServer;
 
 import org.usfirst.frc.team1250.robot.commands.ExampleCommand;
 import org.usfirst.frc.team1250.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1250.robot.subsystems.DriveTrain;
-
+import org.usfirst.frc.team1250.robot.subsystems.Shoulder;
+import org.usfirst.frc.team1250.robot.subsystems.Arm;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -22,7 +24,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	
+	CameraServer server;
+	
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	
@@ -30,6 +34,9 @@ public class Robot extends IterativeRobot {
 	double rightStickValue = 0.0;
 	
 	public static DriveTrain drivetrain;
+	public static Shoulder shoulder;
+	public static Arm arm;
+	
     Command autonomousCommand;
     SendableChooser chooser;
 	double counter = 0.0;
@@ -42,9 +49,13 @@ public class Robot extends IterativeRobot {
     
     public void robotInit() {
     	
-    	
+    	server = CameraServer.getInstance();
+    	server.setQuality(50);
+    	server.startAutomaticCapture("cam0");
     	
     	drivetrain = new DriveTrain();
+    	shoulder = new Shoulder();
+    	arm = new Arm();
 		oi = new OI();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ExampleCommand());
