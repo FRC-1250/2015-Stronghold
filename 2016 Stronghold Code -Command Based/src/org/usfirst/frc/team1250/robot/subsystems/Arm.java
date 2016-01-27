@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Servo;
 import org.usfirst.frc.team1250.robot.RobotMap;
 
 /**
@@ -28,6 +29,7 @@ public class Arm extends Subsystem {
 	private CANTalon rightArm;
 	private CANTalon leftArm;
 	private DigitalInput armDIO;
+	private Servo pivot;
 	
 	public Arm(){
 		
