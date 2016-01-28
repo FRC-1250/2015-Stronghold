@@ -17,18 +17,18 @@ public class DriveTrain extends Subsystem {
     
 	
     private CANTalon frntMotorRight, frntMotorLeft;
-    //private CANTalon midMotorRight,midMotorLeft;
+    private CANTalon midMotorRight,midMotorLeft;
     private CANTalon bckMotorRight,bckMotorLeft;
     private RobotDrive drive;
     
     public DriveTrain(){
     	// Configuring Motors - make sure Talon's are correctly identified in robot.RobotMap.java
     	frntMotorRight = new CANTalon(RobotMap.frntRightMotorID);
-    	//midMotorRight = new CANTalon(RobotMap.midRightMotorID);
+    	midMotorRight = new CANTalon(RobotMap.midRightMotorID);
     	bckMotorRight = new CANTalon (RobotMap.bckRightMotorID);
     	
     	frntMotorLeft = new CANTalon(RobotMap.frntLeftMotorID);
-    	//midMotorLeft = new CANTalon(RobotMap.midLeftMotorID);
+    	midMotorLeft = new CANTalon(RobotMap.midLeftMotorID);
     	bckMotorLeft = new CANTalon(RobotMap.bckLeftMotorID);
     	
     	frntMotorLeft.setInverted(false); // Depends on Board Direction
@@ -36,14 +36,14 @@ public class DriveTrain extends Subsystem {
     	
     	// Front Motor Runs through PercentVBus; Mid and Rear follow Front
     	frntMotorRight.changeControlMode(TalonControlMode.PercentVbus);
-    	//midMotorRight.changeControlMode(TalonControlMode.Follower);
-    	//midMotorRight.set(frntMotorRight.getDeviceID());
+    	midMotorRight.changeControlMode(TalonControlMode.Follower);
+    	midMotorRight.set(frntMotorRight.getDeviceID());
     	bckMotorRight.changeControlMode(TalonControlMode.Follower);
     	bckMotorRight.set(frntMotorRight.getDeviceID());
     	
     	frntMotorLeft.changeControlMode(TalonControlMode.PercentVbus);
-    	//midMotorLeft.changeControlMode(TalonControlMode.Follower);
-    	//midMotorLeft.set(frntMotorLeft.getDeviceID());
+    	midMotorLeft.changeControlMode(TalonControlMode.Follower);
+    	midMotorLeft.set(frntMotorLeft.getDeviceID());
     	bckMotorLeft.changeControlMode(TalonControlMode.Follower);
     	bckMotorLeft.set(frntMotorLeft.getDeviceID());
     	

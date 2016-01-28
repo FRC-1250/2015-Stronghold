@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1250.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team1250.robot.RobotMap;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -41,19 +43,21 @@ public class Shoulder extends Subsystem {
 		leftShoulder.set(rightShoulder.getDeviceID());
 		
 		
-		
+		leftShoulder.enableBrakeMode(true);
+		rightShoulder.enableBrakeMode(true);
 	}
 	
     public void initDefaultCommand() {
     	rightShoulder.changeControlMode(TalonControlMode.PercentVbus); // for now, use manual
     }
     
-    public void manualMode(Joystick pos){
+    public void manualMode(double pos){
     	
     	// gets manualMode Joystick position
     	
     	rightShoulder.changeControlMode(TalonControlMode.PercentVbus); // Position Based
-    	stickPosition = pos.getY()*0.66; //scales value by 2/3 to prevent smashing
+    	stickPosition = pos * 0.66; //scales value by 2/3 to prevent smashing
+    	SmartDashboard.putNumber("StickPosition", stickPosition);
     	rightShoulder.set(stickPosition); 	
     }
     

@@ -37,6 +37,7 @@ public class Robot extends IterativeRobot {
 	public static Shoulder shoulder;
 	public static Arm arm;
 	
+	
     Command autonomousCommand;
     SendableChooser chooser;
 	double counter = 0.0;

@@ -45,17 +45,31 @@ public class Arm extends Subsystem {
 			
 	}
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
-    
-    public boolean hasBall(){
-    	return armDIO.get();
-    }
-    
-    public void setSpeed(double speed){
-    	rightArm.set(speed);
-    }
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		// setDefaultCommand(new MySpecialCommand());
+	}
+
+	public boolean hasBall() {
+		return armDIO.get();
+	}
+
+	public void setSpeed(double speed) {
+		rightArm.set(speed);
+	}
+
+	public void stop() {
+		rightArm.set(STOP);
+
+	}
+
+	public void forward() {
+		rightArm.set(FORWARD);
+	}
+
+	public void reverse() {
+		rightArm.set(REVERSE);
+	}
 }
+
 

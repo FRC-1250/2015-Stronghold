@@ -7,6 +7,8 @@ import org.usfirst.frc.team1250.robot.Robot;
  *
  */
 public class ManualModeShoulder extends Command {
+	
+	private double stickPosition;
 
     public ManualModeShoulder() {
         // Use requires() here to declare subsystem dependencies
@@ -20,7 +22,9 @@ public class ManualModeShoulder extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shoulder.manualMode(Robot.oi.manualStick);
+    	
+    	stickPosition = Robot.oi.manualStick.getY();
+    	Robot.shoulder.manualMode(stickPosition);
     }
 
     // Make this return true when this Command no longer needs to run execute()

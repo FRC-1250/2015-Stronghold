@@ -17,12 +17,12 @@ public class RobotMap {
 	
 	// public static int leftStick = 0;
 	// public static int rightStick = 1;
-	public static int frntRightMotorID = 12;
-	//public static int midRightMotorID = 12;
+	public static int frntRightMotorID = 13;
+	public static int midRightMotorID = 12;
 	public static int bckRightMotorID = 11;
 	
-	public static int frntLeftMotorID = 15;
-	//public static int midLeftMotorID = 15;
+	public static int frntLeftMotorID = 14;
+	public static int midLeftMotorID = 15;
 	public static int bckLeftMotorID = 16; 
 	
 	public static int leftShoulderID = 22;
@@ -30,7 +30,7 @@ public class RobotMap {
 	
 	public static int leftArm = 32;
 	public static int rightArm = 31;
-	
+		
 	public static int armDIO = 1;
 	
     public static int gamepad = 0;
