@@ -14,35 +14,35 @@ import edu.wpi.first.wpilibj.Servo;
 import org.usfirst.frc.team1250.robot.RobotMap;
 
 /**
- * The Arm Subsystem has two TalonSRX motor and a detector
- * to check if ball is inside the arms to open or close the arm
- * Also will either collect or shoot the ball depending on loading
+ * The Arm Subsystem has two TalonSRX motor and a detector to check if ball is
+ * inside the arms to open or close the arm Also will either collect or shoot
+ * the ball depending on loading
  */
 public class Arm extends Subsystem {
-	
+
 	// Constants for speeds
 	public static final double FORWARD = 1;
 	public static final double STOP = 0;
 	public static final double REVERSE = -1;
-	
+
 	// Devices
 	private CANTalon rightArm;
 	private CANTalon leftArm;
 	private DigitalInput armDIO;
 	private Servo pivot;
-	
-	public Arm(){
-		
+
+	public Arm() {
+
 		armDIO = new DigitalInput(RobotMap.armDIO);
-		
+
 		rightArm = new CANTalon(RobotMap.rightArm);
 		leftArm = new CANTalon(RobotMap.leftArm);
-		
+
 		rightArm.changeControlMode(TalonControlMode.PercentVbus);
 		leftArm.changeControlMode(TalonControlMode.Follower);
 		leftArm.set(rightArm.getDeviceID());
-		leftArm.reverseOutput(true); // Reversing slave motor output
-			
+		//leftArm.reverseOutput(true); // Reversing slave motor output
+
 	}
 
 	public void initDefaultCommand() {
@@ -71,5 +71,3 @@ public class Arm extends Subsystem {
 		rightArm.set(REVERSE);
 	}
 }
-
-

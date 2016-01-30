@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 
 import org.usfirst.frc.team1250.robot.commands.ExampleCommand;
 import org.usfirst.frc.team1250.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team1250.robot.subsystems.Shooter;
 import org.usfirst.frc.team1250.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1250.robot.subsystems.Shoulder;
 import org.usfirst.frc.team1250.robot.subsystems.Arm;
@@ -36,7 +37,7 @@ public class Robot extends IterativeRobot {
 	public static DriveTrain drivetrain;
 	public static Shoulder shoulder;
 	public static Arm arm;
-	
+	public static Shooter shooter;
 	
     Command autonomousCommand;
     SendableChooser chooser;
@@ -57,6 +58,7 @@ public class Robot extends IterativeRobot {
     	drivetrain = new DriveTrain();
     	shoulder = new Shoulder();
     	arm = new Arm();
+    	shooter =new Shooter();
 		oi = new OI();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ExampleCommand());
