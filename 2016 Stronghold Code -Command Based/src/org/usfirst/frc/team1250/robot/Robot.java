@@ -13,7 +13,7 @@ import org.usfirst.frc.team1250.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1250.robot.subsystems.Shooter;
 import org.usfirst.frc.team1250.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1250.robot.subsystems.Shoulder;
-import org.usfirst.frc.team1250.robot.subsystems.Arm;
+import org.usfirst.frc.team1250.robot.subsystems.Collector;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 	
 	public static DriveTrain drivetrain;
 	public static Shoulder shoulder;
-	public static Arm arm;
+	public static Collector collector;
 	public static Shooter shooter;
 	
     Command autonomousCommand;
@@ -57,7 +57,7 @@ public class Robot extends IterativeRobot {
     	
     	drivetrain = new DriveTrain();
     	shoulder = new Shoulder();
-    	arm = new Arm();
+    	collector = new Collector();
     	shooter =new Shooter();
 		oi = new OI();
         chooser = new SendableChooser();
@@ -65,7 +65,9 @@ public class Robot extends IterativeRobot {
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putData(Scheduler.getInstance());
-    	SmartDashboard.putNumber("Counter", counter++);
+        SmartDashboard.putNumber("Encoder Position", shoulder.getEncoderTicks());
+        SmartDashboard.putNumber("Shoulder Response", shoulder.getEncoderTicks());
+//    	SmartDashboard.putNumber("Counter", counter++);
     	Timer.delay(0.10);
     	
        

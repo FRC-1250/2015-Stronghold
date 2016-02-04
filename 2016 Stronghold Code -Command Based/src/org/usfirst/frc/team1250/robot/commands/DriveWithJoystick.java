@@ -10,23 +10,56 @@ import org.usfirst.frc.team1250.robot.subsystems.DriveTrain;
  */
 public class DriveWithJoystick extends Command {
 
-
-	
+	private double rightStick;
+	private double leftStick;
+	private int rightOutput, leftOutput;
+	private double setpoint;
     public DriveWithJoystick() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drivetrain);
+    	requires(Robot.collector);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
 
     }
-
+ 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//Robot.drivetrain.tankDrive(Robot.oi.getLeftStick(),Robot.oi.getRightStick(),true);
-    	Robot.drivetrain.tankDrive(Robot.oi.getRightStick(), Robot.oi.getLeftStick(), true);
+    	
+    	leftStick = Robot.oi.getLeftStick();
+    	rightStick = Robot.oi.getRightStick();
+    	Robot.drivetrain.tankDrive(rightStick, leftStick, true);
+    	
+    	if (leftStick> 0){
+    		leftOutput = 1;
+    	}else if(leftStick<0){
+    		leftOutput = -1;
+    	}
+    	
+    	if (rightStick > 0) {
+    		rightOutput = 1;
+    	}else if (rightStick< 0){
+    		rightOutput=-1;
+    	}
+    	
+    	if (rightOutput == leftOutput){
+    		
+    		if (rightOutput>0){
+    			setpoint = Math.min(leftStick, rightStick);
+    			Robot.collector.setSpeed(setpoint);	
+    		}else if (rightOutput<0){
+    			setpoint = Math.max(leftStick, rightStick);
+    			Robot.collector.setSpeed(setpoint);
+    		}
+    		
+    	}else{
+    		Robot.collector.setSpeed(0);
+    	}
+
     	
     	
     }

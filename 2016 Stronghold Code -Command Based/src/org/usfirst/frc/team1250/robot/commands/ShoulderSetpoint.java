@@ -1,59 +1,48 @@
 package org.usfirst.frc.team1250.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team1250.robot.Robot;
-import org.usfirst.frc.team1250.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team1250.formulas.Convert;
+
 /**
  *
  */
-public class ThrottleCheck extends Command {
+public class ShoulderSetpoint extends Command {
+
+	private double setpoint;
+	private double heightWheel;
+	private char c;
 	
-	private double speed;
-	private double zValue;
-	
-    public ThrottleCheck() {
+    public ShoulderSetpoint(char c, double setpoint) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.shooter);
+    	requires(Robot.shoulder);
+    	this.setpoint = setpoint;
+    	this.c = c;
+    	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	heightWheel = Convert.ArmToWheelHeight(setpoint);
     	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	zValue = Robot.oi.manualStick.getZ();
     	
-    
-    	/*if (zValue>= 0 && zValue< 0.45){
-    		speed = 1;
-    	}else if (zValue>= 0.45 && zValue<= 0.55){
-    		speed = 0;
-    	}else if (zValue>0.55 && zValue <=1){
-    		speed = -1;//((-1/0.45)*zValue)+(.55/0.45); 
-    	}*/
     	
-    	if (zValue> 0.5){
-    		speed = 1;
-    	}else if (zValue <0.5){
-    		speed = -1;
-    	}
-    	
-    	Robot.shooter.motorSpeed(speed); 
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (!Robot.oi.manualStick.getRawButton(1));
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.shooter.motorSpeed(0);
     }
 
     // Called when another command which requires one or more of the same

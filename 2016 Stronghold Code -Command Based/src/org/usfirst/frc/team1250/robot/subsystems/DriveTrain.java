@@ -32,7 +32,11 @@ public class DriveTrain extends Subsystem {
     	bckMotorLeft = new CANTalon(RobotMap.bckLeftMotorID);
     	
     	frntMotorLeft.setInverted(false); // Depends on Board Direction
-    	frntMotorRight.setInverted(false);
+    	frntMotorRight.setInverted(true);
+    	
+    	frntMotorLeft.enableBrakeMode(true);
+    	frntMotorRight.enableBrakeMode(true);
+    	
     	
     	// Front Motor Runs through PercentVBus; Mid and Rear follow Front
     	frntMotorRight.changeControlMode(TalonControlMode.PercentVbus);
