@@ -6,19 +6,17 @@ import org.usfirst.frc.team1250.robot.Robot;
 /**
  *
  */
-public class ArmSpeed extends Command {
-	
-	private double speed;
-	
-    public ArmSpeed(double speed) {
-        requires(Robot.arm);
-        this.speed = speed;
-        
+public class ShootOut extends Command {
+
+    public ShootOut() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.shooter);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.arm.setSpeed(speed);
+    	Robot.shooter.motorSpeed(1);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -27,12 +25,12 @@ public class ArmSpeed extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.oi.getShooterButton();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.arm.stop();;
+    	Robot.shooter.motorSpeed(0);
     }
 
     // Called when another command which requires one or more of the same

@@ -30,14 +30,19 @@ public class RobotMap {
 
 	public static int leftArm = 32;
 	public static int rightArm = 31;
-
-	public static int shooterMotorID = 41;
+	
+	public static int shooterServoID = 0;
+	
+	public static int leftShooterMotorID = 41;
+	public static int rightShooterMotorID = 42;
 
 	public static int armDIO = 1;
-
+	public static int lightSensorID = 0;
+	
 	public static int gamepad = 0;
-
+	public static int eStopBoard = 1;
 	public static int manualStick = 3;
+	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;

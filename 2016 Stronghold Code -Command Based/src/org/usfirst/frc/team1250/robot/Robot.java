@@ -13,7 +13,7 @@ import org.usfirst.frc.team1250.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1250.robot.subsystems.Shooter;
 import org.usfirst.frc.team1250.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1250.robot.subsystems.Shoulder;
-import org.usfirst.frc.team1250.robot.subsystems.Arm;
+import org.usfirst.frc.team1250.robot.subsystems.Collector;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 	
 	public static DriveTrain drivetrain;
 	public static Shoulder shoulder;
-	public static Arm arm;
+	public static Collector collector;
 	public static Shooter shooter;
 	
     Command autonomousCommand;
@@ -57,7 +57,7 @@ public class Robot extends IterativeRobot {
     	
     	drivetrain = new DriveTrain();
     	shoulder = new Shoulder();
-    	arm = new Arm();
+    	collector = new Collector();
     	shooter =new Shooter();
 		oi = new OI();
         chooser = new SendableChooser();
@@ -65,8 +65,12 @@ public class Robot extends IterativeRobot {
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putData(Scheduler.getInstance());
-    	SmartDashboard.putNumber("Counter", counter++);
-    	Timer.delay(0.10);
+    	SmartDashboard.putNumber("Shoulder Setpoint Angle", shoulder.getAngleSetpoint());
+        SmartDashboard.putNumber("Shoulder P", Shoulder.p);
+        SmartDashboard.putNumber("Shoulder I", Shoulder.i);
+        SmartDashboard.putNumber("Shoulder D", Shoulder.d);
+
+
     	
        
     }
@@ -81,7 +85,24 @@ public class Robot extends IterativeRobot {
     }
 	
 	public void disabledPeriodic() {
+
 		Scheduler.getInstance().run();
+        if (shoulder.getReverseLim()){
+        	shoulder.resetEncoder();
+        }
+        SmartDashboard.putBoolean("Forward Limit Switch", shoulder.getForwardLim());
+        SmartDashboard.putBoolean("Reverse Limit Switch", shoulder.getReverseLim());
+        
+        leftStickValue = Robot.oi.gamepad.getY();
+    	SmartDashboard.putNumber("Left Stick", leftStickValue);
+    	
+    	rightStickValue = Robot.oi.gamepad.getRawAxis(3);
+    	SmartDashboard.putNumber("Right Stick", rightStickValue);
+    	
+    	SmartDashboard.putNumber("Shoulder Encoder Ticks", shoulder.getEncoderTicks());
+    	SmartDashboard.putNumber("Shoulder Angle", shoulder.getShoulderAngle());
+    	
+    	
 	}
 
 	/**
@@ -133,14 +154,29 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
 
         
+        if (shoulder.getReverseLim()){
+        	shoulder.resetEncoder();
+        }
+        
+        
+        SmartDashboard.putNumber("Error", shoulder.getShoulderError());
+        SmartDashboard.putNumber("What Setpoint", shoulder.whatShoulderSetpoint());
+        SmartDashboard.putBoolean("Light Sensor", shooter.hasBall());
+        
+        SmartDashboard.putBoolean("Forward Limit Switch", shoulder.getForwardLim());
+        SmartDashboard.putBoolean("Reverse Limit Switch", shoulder.getReverseLim());
         
         //Dash Board axis outputs
         
         leftStickValue = Robot.oi.gamepad.getY();
-    	SmartDashboard.putNumber("Left Stick", leftStickValue);
-    	
     	rightStickValue = Robot.oi.gamepad.getRawAxis(3);
+    	SmartDashboard.putNumber("Left Stick", leftStickValue);
     	SmartDashboard.putNumber("Right Stick", rightStickValue);
+    	SmartDashboard.putNumber("Shoulder Angle", shoulder.getShoulderAngle());
+        SmartDashboard.putNumber("Shoulder Encoder Ticks", shoulder.getEncoderTicks());
+
+
+
     }
     
     /**
